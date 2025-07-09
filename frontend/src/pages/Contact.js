@@ -39,7 +39,7 @@ const Contact = () => {
         const result = await response.json();
         setSubmitStatus({
           type: 'success',
-          message: result.message || 'Thank you for your message! I'll get back to you soon.'
+          message: result.message || 'Thank you for your message! I will get back to you soon.'
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
