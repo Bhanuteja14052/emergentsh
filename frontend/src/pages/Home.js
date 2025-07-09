@@ -56,7 +56,14 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24">
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="min-h-screen pt-24"
+    >
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
