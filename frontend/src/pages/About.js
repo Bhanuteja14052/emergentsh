@@ -72,7 +72,14 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="min-h-screen pt-24 pb-16"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
