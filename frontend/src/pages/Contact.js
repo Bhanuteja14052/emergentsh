@@ -7,6 +7,8 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { useToast } from '../hooks/use-toast';
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -30,22 +32,33 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Mock API call - replace with actual backend integration
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for your message. I'll get back to you soon.",
-        duration: 5000,
+      const response = await fetch(`${BACKEND_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
       });
-      
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+
+      if (response.ok) {
+        const result = await response.json();
+        toast({
+          title: "Message sent successfully!",
+          description: result.message || "Thank you for your message. I'll get back to you soon.",
+          duration: 5000,
+        });
+        
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
+      console.error('Error sending message:', error);
       toast({
         title: "Error sending message",
         description: "Please try again later or contact me directly via email.",
